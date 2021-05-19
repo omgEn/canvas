@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>绘制坐标系</title>
+</head>
+<body>
+	<canvas id="demo" width="600" height="600">
+		你的浏览器不支持canvas，请升级浏览器
+	</canvas>
+	<script>
+		var canvas = document.querySelector('#demo');
+		var ctx = canvas.getContext('2d');
+		canvas.width = 600;
+		canvas.height = 600;
+		canvas.style.border = '1px solid #000';
+		
+		var x0 = 100,y0 = 400,maxHeight = 300,maxWidth = 300;
+		var arrowWidth = 10
+		
+		// 绘制x轴
+		ctx.beginPath();
+		ctx.strokeStyle = 'red'
+		ctx.moveTo(x0,y0);
+		ctx.lineTo(500,400)
+		ctx.lineTo(500-arrowWidth,400-arrowWidth)
+		ctx.moveTo(500,400)
+		ctx.lineTo(500-arrowWidth,400+arrowWidth)
+		ctx.stroke()
+		
+		// 绘制y轴
+		ctx.beginPath()
+		ctx.strokeStyle = 'greenyellow'
+		ctx.moveTo(x0,y0);
+		ctx.lineTo(x0,100)
+		ctx.lineTo(x0-arrowWidth,100+arrowWidth)
+		ctx.moveTo(x0,100);
+		ctx.lineTo(x0+arrowWidth,100+arrowWidth)
+		ctx.stroke()
+		
+		// 绘制线段
+		var data = [.4,.5,.8,.7]
+		var pointWidth = 400/data.length +1
+		ctx.beginPath();
+		ctx.strokeStyle = 'blue'
+		for(var i=0;i<data.length;i++){
+			var x = x0+(i+1)*pointWidth;
+			var y = y0-data[i]*maxHeight
+			ctx.lineTo(x,y)
+		}
+		ctx.stroke()
+		
+	</script>
+</body>
+</html>

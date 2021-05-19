@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>beginPath</title>
+</head>
+<body>
+	<div id="container">
+		<canvas id="demo"></canvas>
+	</div>
+	<script>
+		var canvas = document.querySelector('#demo');
+		var ctx = canvas.getContext('2d');
+		canvas.width = 400;
+		canvas.height = 400;
+		canvas.style.border = '1px solid red';
+		canvas.style.borderRadius = '4px';
+		ctx.lineWidth = 10;
+		
+		ctx.strokeStyle = 'green'
+		
+		// 第一条线 默认有 可不写
+		ctx.beginPath();
+		ctx.moveTo(100,100);
+		ctx.lineTo(200,100);
+		ctx.stroke()
+		
+		// 开启一个新路径
+		ctx.beginPath();
+		ctx.strokeStyle = 'aqua';
+		ctx.moveTo(100,120);
+		ctx.lineTo(200,120);
+		ctx.stroke();
+		
+		// 开启第三个状态--可继承之前的样式
+		ctx.beginPath();
+		ctx.moveTo(100,150);
+		ctx.lineTo(200,150);
+		ctx.stroke()
+		
+		// 每个图开始前都beginPath，
+	</script>
+</body>
+</html>

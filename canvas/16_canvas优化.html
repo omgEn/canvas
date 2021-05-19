@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title></title>
+	<script src="./js/ItcastRect.js"></script>
+</head>
+<body>
+	<canvas id="demo" width="600" height="600">
+		你的浏览器不支持canvas，请升级浏览器
+	</canvas>
+	<script>
+		var canvas = document.querySelector('#demo');
+		var ctx = canvas.getContext('2d');
+		canvas.width = 600;
+		canvas.height = 600;
+		canvas.style.border = '1px solid #000';
+		
+		var canvasHide = document.createElement('canvas');
+		canvasHide.width = canvas.width;
+		canvasHide.height = canvas.height;
+		var ctxHide = canvasHide.getContext('2d');
+		
+		var rect = new ItcastRect({
+			x: 100,
+			y: 100,
+			w: 100,
+			h: 100,
+			opacity: .6,
+			rotation: 30,
+			scaleX: 1,
+			scaleY: 1
+		})
+		rect.render(ctxHide);
+		var rect = new ItcastRect({
+			x: 200,
+			y: 200,
+			w: 100,
+			h: 100,
+			opacity: .6,
+			rotation: 30,
+			scaleX: 1,
+			scaleY: 1
+		})
+		rect.render(ctxHide);
+		
+		for(var i=0;i<100;i++){
+			var r = new ItcastRect({
+				x: Math.random()*100,
+				y: Math.random()*100,
+				w: Math.random()*100,
+				h: Math.random()*100,
+				rotation: Math.random*90,
+			})
+			r.render(ctxHide)
+		}
+		
+		// 绘制一次就行了，
+		ctx.drawImage(canvasHide,0,0);
+	
+		
+	</script>
+</body>
+</html>

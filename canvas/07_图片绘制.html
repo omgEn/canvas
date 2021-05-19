@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>图片绘制</title>
+	</head>
+	<body>
+		<canvas id="demo" width="500" height="500">
+			你的浏览器不支持canvas，请升级浏览器
+		</canvas>
+		<script>
+			var canvas = document.querySelector('#demo');
+			var ctx = canvas.getContext('2d');
+			canvas.width = 500;
+			canvas.height = 500;
+			canvas.style.border = '1px solid #000';
+
+			// context.drawImage(img,x,y,width,height)
+
+			// 创建图片
+			var img = new Image();
+			img.src = './images/1.jpg'
+			// 图片加载完成
+			img.onload = function() {
+				// ctx.drawImage(img, 100, 100, 100, 100);
+				// for (var i = 0; i < 10; i++) {
+				// 	ctx.drawImage(img, 100 + 10 * i, 100 + 10 * i,100,100);
+				// }
+				
+				// 保持图片的宽高比
+				var ow = img.width;
+				var oh = img.height;
+				// ctx.drawImage(img,100,100,200,200*oh/ow)
+				
+				// 绘制图片的指定位置(绘制图片的x，y，width，height，;绘制的区域)
+				// context.drawImage(img,sx,sy,swidth,sheight,x,y,width,height)
+				ctx.drawImage(img,1000,1000,200,100,100,100,200,200*oh/ow)				
+			}
+		</script>
+	</body>
+</html>

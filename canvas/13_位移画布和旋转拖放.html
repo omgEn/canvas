@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title></title>
+</head>
+<body>
+	<canvas id="demo" width="600" height="600">
+		你的浏览器不支持canvas，请升级浏览器
+	</canvas>
+	<script>
+		var canvas = document.querySelector('#demo');
+		var ctx = canvas.getContext('2d');
+		canvas.width = 600;
+		canvas.height = 600;
+		canvas.style.border = '1px solid #000';
+		
+		ctx.fillStyle = 'gold'
+		ctx.fillRect(10,10,40,40)
+		// 以上的不受影响
+		
+		// 保存当前上下文
+		ctx.save();
+		// 画布位移
+		ctx.translate(200,200);
+		ctx.rotate(30*Math.PI/180)
+		ctx.scale(2,2);
+		ctx.globalAlpha = .3
+		ctx.moveTo(0,0);
+		ctx.lineTo(400,0);
+		ctx.moveTo(0,0);
+		ctx.lineTo(0,400);
+		ctx.stroke();
+		ctx.fillRect(10,10,40,40)
+		ctx.restore(); // 把上一次保存的ctx状态，还原
+		
+		ctx.fillRect(400,400,40,40)
+	</script>
+</body>
+</html>

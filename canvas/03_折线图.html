@@ -1,0 +1,54 @@
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>03折线图</title>
+	</head>
+	<body>
+		<div id="container">
+			<canvas id="polyline"></canvas>
+		</div>
+		<script>
+			var canvas = document.querySelector('#polyline');
+			var ctx = canvas.getContext('2d');
+			canvas.width = 1200;
+			canvas.height = 1200;
+			canvas.style.border = '1px solid red';
+
+			ctx.beginPath()
+			ctx.moveTo(90, 110);
+			ctx.lineTo(100, 100);
+			ctx.lineTo(110, 110);
+			
+
+			ctx.moveTo(100, 100);
+			ctx.lineTo(100, 600);
+			ctx.lineTo(600, 600);
+
+			ctx.moveTo(590, 590);
+			ctx.lineTo(600, 600);
+			ctx.lineTo(590, 610);
+			ctx.strokeStyle = 'aqua';
+			
+			ctx.stroke()
+		
+
+			var coordinate = [
+				[100, 600],
+				[300, 300],
+				[400, 200],
+				[500, 500],
+				[600, 400]
+			]
+			
+			ctx.beginPath()
+			for (var i = 0; i < coordinate.length; i++) {
+				console.log(coordinate[i])
+				ctx.lineTo(coordinate[i][0], coordinate[i][1])
+			}
+			// ctx.moveTo(100, 600);
+
+			ctx.stroke();
+		</script>
+	</body>
+</html>

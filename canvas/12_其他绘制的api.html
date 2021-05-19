@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title></title>
+</head>
+<body>
+	<canvas id="demo" width="600" height="600">
+		你的浏览器不支持canvas，请升级浏览器
+	</canvas>
+	<script>
+		var canvas = document.querySelector('#demo');
+		var ctx = canvas.getContext('2d');
+		canvas.width = 600;
+		canvas.height = 600;
+		canvas.style.border = '1px solid #000';
+		
+		ctx.fillStyle = 'rgba(255,0,0,.9)'
+		// 偏移样式
+		ctx.shadowColor = 'teal'
+		ctx.shadowOffsetX = 10;
+		ctx.shadowOffsetY = 10;
+		ctx.fillRect(100,100,100,100);
+		
+		
+		// 创建一个线性渐变
+		// context.createLinearGradient(开始x，开始y，结束x坐标，结束y坐标)
+		var grd = ctx.createLinearGradient(0,0,170,0) 
+		grd.addColorStop(0,'black'); // 渐变颜色
+		grd.addColorStop(1,'red')
+		ctx.fillStyle = grd;
+		ctx.fillRect(0,0,100,100)
+		
+		
+		// 圆形渐变
+	
+	</script>
+</body>
+</html>

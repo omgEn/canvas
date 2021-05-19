@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+	<title>sdsd</title>
+</head>
+<body>
+	<canvas id="demo" width="500" height="500">
+		你的浏览器不支持canvas，请升级浏览器
+	</canvas>
+	<script>
+		var canvas = document.querySelector('#demo');
+		var ctx = canvas.getContext('2d');
+		canvas.width = 500;
+		canvas.height = 500;
+		canvas.style.border = '1px solid #000';
+		// x, y,width,height
+		ctx.rect(100,100,50,50);
+		ctx.stroke()
+		
+		// 描边矩形
+		ctx.strokeRect(100,100,100,150)
+		
+		// 填充矩形
+		ctx.fillRect(300,300,40,40)
+		
+		// 清除矩形
+		ctx.clearRect(200,200,100,150)
+	</script>
+</body>
+</html>

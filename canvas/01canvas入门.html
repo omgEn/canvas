@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>01canvas入门</title>
+		<style>
+			#demo {
+				/* width: 1200px;
+				height: 1200px; */
+			}
+		</style>
+	</head>
+	<body>
+		<!-- 宽高不要用css设置 -->
+		<canvas id="demo" width="600" height="600">
+			ie9以上才支持canvas
+			你的浏览器不支持canvas，请升级浏览器
+			<!-- flash 不支持时用 -->
+		</canvas>
+		<script>
+			window.onload = function() {}
+			var canvas = document.getElementById('demo');
+			canvas.style.border = '1px solid red';
+			// canvas.width = 600; // 合法
+			// canvas.height = 600;
+			// canvas.style.height = 1200; // 禁止
+			
+			var ctx = canvas.getContext('2d'); // 3d => webgl
+			ctx.moveTo(100,100)
+			ctx.lineTo(200,100)
+			ctx.lineTo(100,200)
+			// ctx.lineTo(100,100)
+			ctx.closePath() // 闭合路径
+			
+			// 线宽
+			ctx.lineWidth = 4; 
+			// 描边样式
+			ctx.strokeStyle = 'rgba(233,233,233,.8)'; //
+			ctx.stroke() // 描边
+			
+			ctx.fillStyle = 'green' // 默认黑色
+			// 填充
+			ctx.fill()
+		</script>
+	</body>
+</html>

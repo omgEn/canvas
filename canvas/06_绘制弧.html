@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>绘制弧</title>
+	</head>
+	<body>
+		<canvas id="demo" width="500" height="500">
+			你的浏览器不支持canvas，请升级浏览器
+		</canvas>
+		<script>
+			var canvas = document.querySelector('#demo');
+			var ctx = canvas.getContext('2d');
+			canvas.width = 500;
+			canvas.height = 500;
+			canvas.style.border = '1px solid #000';
+
+			// ctx.moveTo(300, 300);
+			// 弧度：x,y,开始角度，半径，结束角度,顺时针:默认false，true 逆时针
+			// ctx.arc(c,y,startAngle,endAngle,anticlockwise)
+			// ctx.arc(300, 300, 100, 0 * Math.PI / 180, 30 * Math.PI / 180, true);
+			// ctx.closePath()
+			// ctx.stroke();
+
+			// 绘制扇区
+			ctx.moveTo(300, 300);
+			ctx.fillStyle = 'red';
+			ctx.arc(300, 300, 100, -90 * Math.PI / 180, -30 * Math.PI / 180)
+			ctx.fill()
+
+			var data = [{
+					value: .2,
+					color: 'red',
+					title: 'testA'
+				},
+				{
+					value: .3,
+					color: 'blue',
+					title: 'testB'
+				},
+				{
+					value: .4,
+					color: 'green',
+					title: 'testC'
+				},
+				{
+					value: .1,
+					color: '#ccc',
+					title: 'testD'
+				},
+			];
+
+			// 从-90度开始绘制
+
+			var tempAngle = -90;
+			var x0 = 300,
+				y0 = 300,
+				radius = 100
+			for (var i = 0; i < data.length; i++) {
+				ctx.beginPath() // 每次的颜色都不同
+				ctx.moveTo(x0, y0)
+				var angle = data[i].value * 360
+				ctx.fillStyle = data[i].color;
+				var startAngle = tempAngle * Math.PI / 180;
+				var endAngle = (tempAngle + angle) * Math.PI / 180;
+				ctx.arc(x0, y0, radius, startAngle, endAngle)
+				
+				// 绘制文字
+				var txt = data[i].value * 100 + '%'
+				var x, y, txtAngle = tempAngle + 1 / 2 * angle;
+				x = x0 + Math.cos(txtAngle * Math.PI / 180) * (radius + 20)
+				y = y0 + Math.sin(txtAngle * Math.PI / 180) * (radius + 20)
+				if (txtAngle > 90 && txtAngle < 270) {
+					ctx.textAlign = 'end'
+				}
+				ctx.fillText(txt, x, y);
+				ctx.fill()
+				tempAngle += angle
+			}
+
+
+			// ctx.font = '20px'
+			// ctx.textBaseline = 'bottom'; 
+			// ctx.textAlign = 'left';
+			
+			// ctx.strokeText('left',20,20); // 绘制文本，无填充
+			// ctx.fillText('d',10,10) // 绘制文本，有填充
+			// ctx.measureText // 返回包含指定文本宽度的对象
+		</script>
+	</body>
+</html>

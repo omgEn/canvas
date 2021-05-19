@@ -1,0 +1,39 @@
+!
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>02canvas案例--绘制表格</title>
+	</head>
+	<body>
+		<div id="container">
+			<canvas id='cavsElem'>你的浏览器不支持canvas，请升级浏览器</canvas>
+		</div>
+
+		<script>
+				(function() {
+					var canvas = document.querySelector('#cavsElem');
+					var ctx = canvas.getContext('2d');
+
+					canvas.width = 600;
+					canvas.height = 600;
+					canvas.style.border = '1px solid #000';
+
+					var rectH = 10;
+					var rectW = 10;
+					ctx.lineWidth = 0.5
+					// 1:绘制表格
+					// 1-1:绘制横线
+					for (var i = 0; i < canvas.width / rectH; i++) {
+						ctx.moveTo(0, i * rectH); // 起始点
+						ctx.lineTo(canvas.width, i * rectH);
+						// 1-2:绘制竖线
+						ctx.moveTo(i * rectW, 0);
+						ctx.lineTo(i * rectW, canvas.height)
+					}
+					ctx.stroke();
+				}());
+		</script>
+	</body>
+</html>

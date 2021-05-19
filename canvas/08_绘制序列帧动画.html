@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title></title>
+</head>
+<body>
+	<canvas id="demo" width="600" height="600">
+		你的浏览器不支持canvas，请升级浏览器
+	</canvas>
+	<button id="btn-dir-left">左</button>
+	<button id="btn-dir-right">右</button>
+	<button id="btn-dir-up">上</button>
+	<button id="btn-dir-down">下</button>
+	<script>
+		var canvas = document.querySelector('#demo');
+		var ctx = canvas.getContext('2d');
+		canvas.width = 600;
+		canvas.height = 600;
+		canvas.style.border = '1px solid #000';
+		
+		var img = new Image();
+		img.src = 'images/zhen.png';
+		img.onload = function(){
+			var framwIndex = 0;
+			// 1s绘制10帧
+			setInterval(function(){
+				// 清除之前的图片
+				// ctx.clearRect(0,0,canvas.width,canvas.height)
+				// 若重写设置画布的宽高，则canvas画布里的所有内容都会清空
+				canvas.width = canvas.width
+				ctx.drawImage(
+					img,
+					framwIndex*40, // 原图片的x坐标
+					0, // 原图片的y坐标
+					102, // 原图片的宽
+					62, // 原图片的高
+					200, // 图片在canvas 的x坐标
+					200, //  图片在canvas的y坐标
+					204, // 绘制图片的宽
+					124 // 绘制图片的高
+				);
+				framwIndex++;
+				framwIndex %=4 
+			},1000/10)
+		}
+		
+		var btnLeft = document.getElementById('btn-dir-left')
+		btnLeft.onclick = function(){
+			dirIndex = 1;
+		}
+		
+	</script>
+</body>
+</html>

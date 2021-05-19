@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title></title>
+	<script src="./js/ItcastRect.js"></script>
+</head>
+<body>
+	<canvas id="demo" width="600" height="600">
+		你的浏览器不支持canvas，请升级浏览器
+	</canvas>
+	<canvas id="demo2" width="600" height="600">
+		你的浏览器不支持canvas，请升级浏览器
+	</canvas>
+	<img src="" alt="" id="imgId">
+	<script>
+		var canvas = document.querySelector('#demo');
+		var ctx = canvas.getContext('2d');
+		canvas.width = 600;
+		canvas.height = 600;
+		canvas.style.border = '1px solid red';
+		
+		var canvas2 = document.querySelector('#demo2');
+		var ctx2 = canvas2.getContext('2d');
+		canvas2.style.border = '1px solid #000';
+		
+		var rect = new ItcastRect({
+			x: 100,
+			y: 100,
+			w: 100,
+			h: 100,
+			opacity: .6,
+			rotation: 30,
+			scaleX: 2,
+			scaleY: 2
+		})
+		rect.render(ctx)
+	
+		// for(var i=0;i<100;i++){
+		// 	var r = new ItcastRect({
+		// 		x: Math.random()*100,
+		// 		y: Math.random()*100,
+		// 		w: Math.random()*100,
+		// 		h: Math.random()*100,
+		// 		rotation: Math.random*90,
+		// 	})
+		// 	r.render(ctx)
+		// }
+		
+		
+		
+		// 把canvas转成一个图片(把二进制转成base64编码)
+		canvas.toDataURL('image/jpeg', .6)
+		
+		// 运动
+		setInterval(function(){
+			ctx.clearRect(0,0,canvas.width,canvas.height)
+			rect.x+=10
+			rect.render(ctx)
+			// 把canvas输入到一张图片上
+			// var img = document.getElementById('imgId')
+			// img.src = canvas.toDataURL('image/png',.5)
+			
+			// 把一个画布渲染到另外一个画布上
+			// canvas绘制到ctx2上
+			ctx2.drawImage(canvas,0,0)
+		},100)
+	</script>
+</body>
+</html>
