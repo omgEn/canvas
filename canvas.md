@@ -85,13 +85,13 @@
 
   butt(默认),round,square
 
-  ![image-20210906111846694](C:\Users\102253\AppData\Roaming\Typora\typora-user-images\image-20210906111846694.png)
+  ![image-20210906111846694](./img/image-20210906111846694.png)
 
 * lineJoin 设置线条与线条间结合处的样式
 
   round,bevel,miter(默认)
 
-  ![image-20210906112340459](C:\Users\102253\AppData\Roaming\Typora\typora-user-images\image-20210906112340459.png)
+  ![image-20210906112340459](./img/image-20210906112340459.png)
 
 * miterLimit=num  设定外延交点与连接点的最大距离，若交点距离大于此值，连接效果变成bevel
 
@@ -148,7 +148,7 @@ function draw() {
 }
 ````
 
-![image-20210906120347067](C:\Users\102253\AppData\Roaming\Typora\typora-user-images\image-20210906120347067.png)
+![image-20210906120347067](./img/image-20210906120347067.png)
 
 ### 3.绘制文本
 
@@ -169,7 +169,7 @@ function draw() {
 }
 ````
 
-![image-20210906135650374](C:\Users\102253\AppData\Roaming\Typora\typora-user-images\image-20210906135650374.png)
+![image-20210906135650374](./img/image-20210906135650374.png)
 
 文本属性
 
