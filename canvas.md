@@ -79,7 +79,7 @@
 
   注：线宽会平分坐标两侧
 
-  ![image-20210906111247408](C:\Users\102253\AppData\Roaming\Typora\typora-user-images\image-20210906111247408.png)
+  ![image-20210906111247408](./img/image-20210906111247408.png)
 
 * lineCap 设置线条末端样式
 
