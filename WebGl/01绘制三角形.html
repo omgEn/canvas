@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title></title>
+		<style type="text/css">
+			#myCanvas {
+				border: 1px solid red;
+			}
+		</style>
+
+	</head>
+	<body onload="Init()">
+		<canvas id="myCanvas" width='600' height='450'></canvas>
+	</body>
+	<script id="shader-vs">
+		// 在显卡上在执行--顶点
+		attribute vec3 v3Position;
+		void main(void){
+			gl_Positon = vec4(v3Positon,1.0)
+		}
+	</script>
+	<script id="shader-fs">
+		// 在显卡上在执行--填充颜色
+		void main(void){
+			gl_Positon = vec4(1.0,1.0,1.0,1.0)
+		}
+	</script>
+	<script>
+		function getShaderSource(scriptID){
+			var shaderScript = document.getElementById(scriptID)
+			if(shaderScript===null) return '';
+			var sourceCode = '';
+			var child = shaderScropt.firstChild;
+			whild(child){
+				if(child.nodeType===child.TEXT_NODE) sourceCode+=child.textContent
+				child = child.nextSibling;
+			}
+			return sourceCode;
+		}
+		
+		
+		var webgl = null;
+		var vertexShaderObject = null;
+		var fragmentShaderObject = null;
+		var programObject = null;
+		var triangleBuffer = null;
+		var v3PositionIndex = 0;
+		
+		function Init(){
+			var canvas = document.querySelector('#myCanvas');
+			webgl = canvas.getContext('webgl');
+			// 设置webgl视口大小
+			webgl.viewport(0,0,canvas.clientWidth,canvas.clientHeight)
+			webgl.clearColor(0.0,0.0,0.0,1.0)
+			// webgl.clear(webgl.COLOR_BUFFER_BIT)
+			
+			vertexShaderObject = webgl.createShader(webgl.VERTEX_SHADER
+			fragmentShaderObject = webgl.createShader(webgl.FRAGMENT_SHADER)
+			
+			webgl.shaderSource(vertexShaderObject,getShaderSource("shader-vs"))
+			webgl.shaderSource(fragmentShaderObject,getShaderSource("shader-fs"))
+			
+			webgl.compileShader(vertexShaderObject)
+			webgj.compileShader(fragmentShaderObject)
+			
+			if(!webgl.getShaderParameter(vertexShaderObject,webgl.COMPILE_STATUS)){
+				alert("error:vertexShaderObject")
+				return;
+			} 
+			if(!webgl.getShaderParameter(fragmentShaderObject,webgl.COMPILE_STATUS)){
+				alert("error:fragmentShaderObject")
+				return;
+			}
+			
+			programObject = webgl.createProgram();
+			
+			webgl.attachShader(programObject,vertexShaderObject);
+			webgl.attachShader(programObject,fragmentShaderObject);
+			
+			webgl.bindAttribLocation(programObject,vertexShaderObject);
+			
+			webgl.linkProgram(programObject);
+			if(!webgl.getProgramParameter(programObject,wewbgl.LINK_STATUS)){
+				alert("error:programObject")
+				return;
+			}
+			
+			webgl.useProgram(programObject);
+			
+			var jsArrayData = [
+				0.0,1.0,0.0, // 上顶点（x,y,z）
+				-1.0,-1.0,0.0,// 左顶点
+				1.0,-1.0,0.0 // 右顶点
+			];
+			
+			triangleBuffer = webgl.createBuffer()
+			webgl.bindBuffer(webgl.ARRAY_BUFFER,triangleBuffer);
+			webgl.bufferData(webgl.ARRAY_BUFFER,new Float32Array(jsArrayData),webgl.SAMPLER_DRAW);
+			
+			webgl.clearColor(0.0,0.0,0.0,1.0)
+			webgl.clear(webgl.COLOR_BUFFER_BIT);
+			
+			webgl.bindBuffer(webgl.ARRAY_BUFFER,triangleBuffer)
+			webgl.bufferData(webgl.ARRAY_)
+		}
+	</script>
+</html>

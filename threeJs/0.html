@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>My first three.js app</title>
+		<style>
+			body { margin: 0; }
+		</style>
+		
+	</head>
+	<body>
+		<script src="js/three.js"></script>
+		<script>
+			// 需要以下几个对象：场景、相机和渲染器，这样我们就能透过摄像机渲染出场景。
+			// three.js里有几种不同的相机,PerspectiveCamera（透视摄像机）。
+			// 1.创建一个场景
+			const scene = new THREE.Scene();
+			// PerspectiveCamera(视野角度（FOV）,长宽比（aspect ratio）,近截面（near）,远截面（far）)
+			const camera = new THREE.PerspectiveCamera(75,window.innerWidth/window.innerHeight,0.1,1000);
+			// WebGLRenderer渲染器
+			const renderer = new THREE.WebGLRenderer();
+			// 渲染器的尺寸:第三个参数为false时，可降低分辨率
+			renderer.setSize(window.innerWidth,window.innerHeight);
+			// 将renderer（渲染器）的dom元素（renderer.domElement）添加到我们的HTML文档中
+			document.body.appendChild(renderer.domElement)
+			
+			// 2.添加立方体
+			// BoxGeometry 立方体对象： 这个对象包含了一个立方体中所有的顶点（vertices）和面（faces）
+			const geometry = new THREE.BoxGeometry();
+			// 材质
+			const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+			// 网格：包含一个几何体以及作用在此几何体上的材质
+			const cube = new THREE.Mesh(geometry,material)
+			// 默认坐标在(0,0,0)
+			scene.add(cube)
+			// 避免摄像机和立方体在一起，将摄像机往外移动一些
+			camera.position.z = 5
+			
+			// 3.渲染场景
+			function animate(){
+				// 动画循环：60次/秒
+				requestAnimationFrame(animate);
+				// 绕着x轴旋转
+				cube.rotation.x += 0.01;
+				cube.rotation.y += 0.01
+				cube.rotation.z += 0.01
+				renderer.render(scene,camera);
+			}
+			animate();
+			// requestAnimationFrame：对比setInterval 当用户切换到其他标签页时，它会暂停，不会浪费处理器资源，也不不会损耗电池使用寿命
+		</script>
+	</body>
+</html>
