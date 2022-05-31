@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>aircraft war</title>
+		<style>
+			*{
+				margin: 0;
+			}
+			body {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				width: 100vw;
+				height: 100vh;
+			}
+			.contain {
+				position: relative;
+			}
+			#bgCanvas {
+				box-shadow: 0 0 10px #333;
+			}
+			#planeCanvas,#bulletCanvas,#enemyCanvas {
+				position: absolute;
+				left: 0;
+				top: 0;
+			}	
+		</style>
+	</head>
+	<body onload='drawAirplane()'>
+		<div class="contain">
+			<canvas id="bgCanvas" width="320" height="568"></canvas>
+			<canvas id="planeCanvas" width="320" height="568"></canvas>
+			<canvas id="bulletCanvas" width="320" height="568"></canvas>
+			<canvas id="enemyCanvas" width="320" height="568"></canvas>
+		</div>
+	</body>
+	<script src="js/fn.js"></script>
+	<script>
+		
+		function drawAirplane(){
+			var bgCanvas = document.querySelector('#bgCanvas')
+			// 是否支持canvas
+			if(bgCanvas.getContext){
+				this.handleBg()
+			}
+		}
+		
+		var planeCanvas,plane,bCanvas,eCanvas,bulletArray = new Array(),enemyArray=new Array();
+		
+		// 背景
+		function handleBg(){
+			// 加载图片
+			loadBackground('img/bg.jpg',bgCanvas,moveBackground);
+			function moveBackground(bgImage){
+				// 添加声音
+				// var bgSound = new Audio('.mp3')
+				// bgSound.loop = true;
+				// bgSound.play();
+				setInterval(function(){
+					var speed = 5;
+					animateBackground(bgCanvas,bgImage,speed)
+				},30)
+				this.handlePlane();
+				this.handleButtle()
+				this.handleEmemy()
+			}
+		}
+		
+		// 飞机
+		function handlePlane(){
+			// 飞机
+			planeCanvas = document.getElementById('planeCanvas')
+			var context = planeCanvas.getContext('2d')
+			plane = createPlane(66,82,planeCanvas,'./img/plane.jpg',planeLoaded)
+			
+			// 图片加载太消耗资源，所以用回调
+			function planeLoaded(){
+				plane.draw(planeCanvas)
+			}
+			
+			// 飞机动起来 (通过动画有喷火+闪烁的效果)
+			setInterval(function(){
+				context.clearRect(0,0,320,568)
+				plane.draw(planeCanvas)
+			},30)
+		}
+		// 子弹
+		function handleButtle(){
+			// 让子弹动起来
+			bCanvas = document.getElementById('bulletCanvas')
+			var bContext = bCanvas.getContext('2d')
+			
+			var bHeight = 24;
+			var bWidth = 20
+			// 不断生成子弹
+			setInterval(function(){
+				var bullet = createBullet(bWidth,bHeight,'img/bullet.jpg',plane)
+				bulletArray.push(bullet)
+			},200)
+			
+			// 让子弹位移
+			setInterval(function(){
+				// 清除画布
+				bContext.clearRect(0,0,320,568)
+				bulletArray.forEach((item,i)=>{
+					
+					item.move(bCanvas)
+					item.draw(bCanvas)
+					
+					// 循环敌机
+					enemyArray.forEach((subItem,j)=>{
+						if(isEnemyHitPlane(bulletArray[i],enemyArray[j])){
+							// 声音特效
+							// enemyArray[j].crash()
+							console.log(bulletArray[i],enemyArray[j])
+							enemyArray.splice(j,1)
+							bulletArray.splice(i,1)
+						}
+					})
+					// 出屏检测
+					if(item.isOutOfScreen()){
+						bulletArray.splice(i,1)
+					}
+				})
+			},30)
+		}
+		// 敌机
+		function handleEmemy(){
+			// 敌机
+			eCanvas = document.getElementById('enemyCanvas')
+			var eContext = eCanvas.getContext('2d');
+			var eUrl = './img/enemy.png'
+			// 不断生成敌机
+			setInterval(function(){
+				var number = getRandomEnemy(1,3)
+				var enemy;
+				switch(number){
+					case 1: {enemy = createEnemy(38,34,eUrl,eCanvas); break;}
+					case 2: {enemy = createEnemy(60,80,eUrl,eCanvas); break;}
+					case 3: {enemy = createEnemy(46,64,eUrl,eCanvas); break;}
+				}
+				enemyArray.push(enemy)
+			},1000)
+			
+			// 让敌机降落
+			var eTimer = setInterval(function(){
+				// 清除画布
+				eContext.clearRect(0,0,eCanvas.width,eCanvas.height)
+				enemyArray.forEach((item,i)=>{
+					// 出屏销毁
+					if(item.isOutOfScreen(eCanvas)){
+						enemyArray.splice(i,1)
+					}
+					// 碰撞检测
+					if(isEnemyHitPlane(enemyArray[i],plane)){
+						// console.log(enemyArray[i],plane)
+						clearInterval(eTimer)
+						eTimer = null;
+						alert('Game Over!')
+					}
+					item.move()
+					item.draw(eCanvas)
+				})
+			},2000)
+		}
+		
+	</script>
+</html>
