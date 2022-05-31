@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title></title>
+	</head>
+	<body onload="draw()">
+		<canvas id="demo" width="600" height="600">
+			你的浏览器不支持canvas，请升级浏览器
+		</canvas>
+		<script>
+			var canvas = document.querySelector('#demo');
+			var ctx = canvas.getContext('2d');
+			canvas.width = 600;
+			canvas.height = 600;
+			canvas.style.border = '1px solid #000';
+
+			function draw() {
+				var lingrad = ctx.createLinearGradient(0, 0, 0, 150)
+				lingrad.addColorStop(0, '#00ABEB');
+				lingrad.addColorStop(0.5, '#fff');
+				lingrad.addColorStop(0.5, '#26C000');
+				lingrad.addColorStop(1, '#fff');
+
+				var lingrad2 = ctx.createLinearGradient(0, 50, 0, 95);
+				lingrad2.addColorStop(0.5, '#000');
+				lingrad2.addColorStop(1, 'rgba(0,0,0,0)');
+
+				ctx.fillStyle = lingrad
+				ctx.fillRect(10,10,130,130);
+				ctx.strokeStyle = lingrad2;
+				ctx.strokeRect(50,50,50,50);
+			}
+		</script>
+	</body>
+</html>

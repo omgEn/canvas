@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title></title>
+	</head>
+	<body onload="march()">
+		<canvas id="demo" width="600" height="600">
+			你的浏览器不支持canvas，请升级浏览器
+		</canvas>
+		<script>
+			var canvas = document.querySelector('#demo');
+			var ctx = canvas.getContext('2d');
+			canvas.width = 600;
+			canvas.height = 600;
+			canvas.style.border = '1px solid #000';
+			var offset = 0;
+			function draw() {
+			  ctx.clearRect(0,0, canvas.width, canvas.height);
+			  ctx.setLineDash([4, 4]);
+			  ctx.lineDashOffset = -offset;
+			  ctx.strokeRect(10,10, 100, 100);
+			}
+			
+			function march() {
+			  // offset++;
+			  offset = offset + 4
+			  // if (offset > 16) {
+			  //   offset = 0;
+			  // }
+			  draw();
+			  setTimeout(march, 200);
+			}
+			
+			march();
+			
+		</script>
+	</body>
+</html>

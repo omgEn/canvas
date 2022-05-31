@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			#canvas {
+				margin: 50px;
+				border: 1px solid #000;
+			}
+		</style>
+	</head>
+	<body onload="main()">
+		<canvas id="canvas" width="600" height="600"></canvas>
+		<canvas id="imgCanvas"></canvas>
+	</body>
+	<script type="text/javascript">
+		function main() {
+			let canvas = document.querySelector('#canvas');
+			let ctx = canvas.getContext('2d')
+			let img = new Image()
+			let imgCanvas = document.createElement('canvas')
+			// let imgCanvas = document.querySelector('#imgCanvas');
+			let imgCtx = imgCanvas.getContext('2d')
+			let imgWidth = 200,
+				imgHeight = 200;
+			imgCanvas.width = imgWidth
+			imgCanvas.height = imgWidth
+			imgCanvas.style.border = "1px solid red"
+			canvas.onmousedown = function(event) {
+				console.log('onmousedown', event,event.target,[event.target.nextElementSibling]);
+				console.log([imgCanvas])
+			}
+			canvas.onmouseup = function(event) {
+				console.log('onmouseup', event);
+			}
+			canvas.onmousewhell = function(event) {
+				console.log('onmousewhell', event);
+			}
+
+			img.onload = function() {
+				// imgCtx.clearRect(0, 0, imgCanvas.width, imgCanvas.height)
+				// 绘制图片
+				imgCtx.drawImage(img, 0, 0, imgCanvas.width, imgCanvas.height)
+				// 将图片canvas绘制到主canvas
+				ctx.drawImage(imgCanvas, 0, 0, imgCanvas.width, imgCanvas.height)
+				console.log(imgCanvas)
+			}
+			
+			img.src = 'https://pic.qqtn.com/up/2019-9/15690311636958128.jpg'
+
+		}
+	</script>
+</html>

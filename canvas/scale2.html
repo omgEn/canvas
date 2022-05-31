@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+			}
+
+			.box {
+				margin: 50px;
+				border: 1px solid #000;
+				width: 600px;
+				height: 600px;
+				position: relative;
+				/* display: flex;
+				justify-content: center;
+				align-items: center; */
+				/* box-sizing: border-box; */
+			}
+		</style>
+	</head>
+	<body onload="main()">
+		<div class="box">
+			<canvas id="imgCanvas"></canvas>
+		</div>
+	</body>
+	<script type="text/javascript">
+		function main() {
+			const box = document.querySelector('.box')
+			const w = box.offsetWidth,
+				h = box.offsetHeight
+			console.log(w, h)
+			let canvas = document.querySelector('canvas');
+			canvas.width = 600
+			canvas.height = 600
+			let ctx = canvas.getContext('2d')
+			let img = new Image()
+			img.onload = function() {
+				ctx.drawImage(img, (w - canvas.width) / 2, (h - canvas.height) / 2, canvas.width, canvas.height)
+				let outerX = 50,
+					outerY = 50,
+					imgScale = 1;
+				let mouse = {
+					x: 0,
+					y: 0,
+					ratioX: 1,
+					ratioY: 1,
+					isClick: false
+				};
+
+				canvas.onmousedown = function(e) {
+					ctx.save()
+					const target = e.target
+
+					// console.log(e, e.target, target.offsetTop, target.offsetLeft, e.clientX, e.clientY)
+					// mouse.ratioX = (e.clientX - outerX) / canvas.width
+					// mouse.ratioY = (e.clientY - outerY) / canvas.width
+					// console.log(mouse, this.left, this.top)
+					mouse.x = e.clientX
+					mouse.y = e.clientY
+					mouse.isClick = true
+				}
+
+				canvas.onmousemove = function(e) {
+					if (!mouse.isClick) {
+						return
+					}
+					const target = e.target
+					ctx.save()
+					// console.log('onmouseup', e, this);
+					this.left = (e.clientX - outerX) / mouse.ratioX
+					this.top = (e.clientY - outerY) / mouse.ratioY
+					console.log(mouse, this.left, this.top)
+					ctx.clearRect(0, 0, canvas.width, canvas.height)
+					ctx.translate(e.clientX - mouse.x, e.clientY - mouse.y)
+					// ctx.drawImage(img, this.left, this.top, 200, 200)
+					// ctx.fillRect(0,0,200,200)
+
+					ctx.drawImage(img, 0, 0, canvas.width * imgScale, canvas.height * imgScale)
+					ctx.restore()
+				}
+				// 拖拽过程中距离元素与鼠标的距离保持不变
+				canvas.onmouseup = function(e) {
+					mouse.isClick = false
+					const target = e.target
+					mouse.x = e.clientX
+					mouse.y = e.clientY
+					console.log('onmouseup', e, this);
+					// this.left = (e.clientX - outerX) / mouse.ratioX
+					// this.top = (e.clientY - outerY) / mouse.ratioY
+					ctx.save()
+				}
+				canvas.onmousewheel = canvas.onwheel = function(e) {
+					console.log('onmousewhell', e)
+					mouse.isClick = false
+					console.log('onmousewhell', e);
+
+					imgScale = e.wheelDelta > 0 ? imgScale + 0.1 : imgScale - 0.1
+					ctx.save()
+					ctx.clearRect(0, 0, 600, 600)
+					// ctx.scale(1.1, 1.1)
+					ctx.drawImage(img, 0+600 * imgScale/600, 0+600 * imgScale/600, 600 * imgScale, 600 * imgScale)
+					ctx.restore()
+				}
+			}
+
+
+
+			img.src = 'https://pic.qqtn.com/up/2019-9/15690311636958128.jpg'
+
+
+		}
+	</script>
+</html>

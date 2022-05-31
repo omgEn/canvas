@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title></title>
+	</head>
+	<body onload="drawClip()">
+		<canvas id="demo" width="600" height="600">
+			你的浏览器不支持canvas，请升级浏览器
+		</canvas>
+		<script>
+			var canvas = document.querySelector('#demo');
+			var ctx = canvas.getContext('2d');
+			canvas.width = 600;
+			canvas.height = 600;
+			canvas.style.border = '1px solid #000';
+
+			function main() {
+				ctx.beginPath()
+				ctx.moveTo(0, 50);
+				ctx.lineTo(25, 75);
+				ctx.lineTo(25, 25);
+				ctx.closePath()
+				ctx.stroke()
+
+				ctx.beginPath()
+
+				ctx.rect(100,100,100,100)
+				ctx.fill()
+			}
+
+			function draw() {
+				for (var i = 0; i < 4; i++) {
+					for (var j = 0; j < 3; j++) {
+						ctx.beginPath()
+						var x = 25 + j * 50
+						var y = 25 + i * 50
+						var radius = 20;
+						var startAngle = 0;
+						var endAngle = Math.PI + (Math.PI * j) / 2
+						var anticlockwise = i % 2 == 0 ? false : true; // 顺时针或逆时针
+						ctx.arc(x, y, radius, startAngle, endAngle, anticlockwise);
+						if (i > 1) {
+							ctx.fill();
+						} else {
+							ctx.stroke();
+						}
+					}
+				}
+			}
+			
+			function drawClip(){
+				ctx.beginPath();
+				  ctx.arc(50, 50, 30, 0, Math.PI*2, true);
+				  ctx.arc(50, 50, 15, 0, Math.PI*2, true);
+				  ctx.fill("nonzero");
+			}
+		</script>
+	</body>
+</html>
